@@ -15,6 +15,15 @@ tools = [
     {"level": 4, "name": "Team of Starving Students", "cost": 500, "generates": 250},
 ]
 
+print("player money")
+print(player["money"])
+print("----")
+print("player tool level")
+print(tools[player["tool"]]["level"])
+print(tools[player["tool"]]["name"])
+print(tools[player["tool"]]["cost"])
+print(tools[player["tool"]]["generates"])
+
 
 def getInput():
     result = input("do you want to [m]ow, [u]pgrade, or [q]uit? ")
@@ -36,16 +45,22 @@ def getInput():
 
 
 def mow():
-    print("you attacked")
-    player["money"] += 1
+    print("you worked")
+    player["money"] += tools[player["tool"]]["generates"]
+    print(f"you have ${player['money']}")
     win()
 
 
 def upgrade():
-    print("you upgraded")
-    player["tool"] += 1
-    print(tools[player["tool"]])
-    win()
+    if player["money"] < tools[player["tool"] + 1]["cost"]:
+        print("you don't have enough money")
+        win()
+    else:
+        print("you upgraded")
+        player["money"] - tools[player["tool"] + 1]["cost"]
+        player["tool"] += 1
+        print(tools[player["tool"]])
+        win()
 
 
 def quit():
