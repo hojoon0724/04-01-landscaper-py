@@ -1,7 +1,5 @@
-## Player Dictionary Representing the Players Stats
 player = {"money": 0, "tool": 0}
 
-## Weapons List
 tools = [
     {"level": 0, "name": "Teeth", "cost": 0, "generates": 1},
     {"level": 1, "name": "Rusty scissors", "cost": 5, "generates": 5},
@@ -14,15 +12,6 @@ tools = [
     },
     {"level": 4, "name": "Team of Starving Students", "cost": 500, "generates": 250},
 ]
-
-print("player money")
-print(player["money"])
-print("----")
-print("player tool level")
-print(tools[player["tool"]]["level"])
-print(tools[player["tool"]]["name"])
-print(tools[player["tool"]]["cost"])
-print(tools[player["tool"]]["generates"])
 
 
 def getInput():
@@ -52,6 +41,9 @@ def mow():
 
 
 def upgrade():
+    if tools[player["tool"]]["level"] == 4:
+        print("no more upgrades")
+        win()
     if player["money"] < tools[player["tool"] + 1]["cost"]:
         print("you don't have enough money")
         win()
@@ -68,7 +60,11 @@ def quit():
 
 
 def win():
-    getInput()
+    if tools[player["tool"]]["level"] == 4 and player["money"] >= 1000:
+        print("you win")
+        quit()
+    else:
+        getInput()
 
 
 getInput()

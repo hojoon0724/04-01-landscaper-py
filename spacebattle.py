@@ -76,7 +76,6 @@ def quitGame():
 
 def allDead():
     for alien in aliens:
-        # print(alien.__dict__)
         if alien.dead == False:
             return False
 
@@ -92,7 +91,6 @@ def winCondition():
 
 def pickAlien():
     for alien in aliens:
-        # print(alien.__dict__)
         if alien.dead == False:
             return alien
 
