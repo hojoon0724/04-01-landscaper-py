@@ -45,6 +45,30 @@ def getInput():
     winCondition()
 
 
+def ranges_random_tipping_point(low, high):
+    while True:
+        threshold = random.random()
+        if threshold >= low and threshold <= high:
+            # print(threshold)
+            return threshold
+
+
+def calculate_accuracy(low, high):
+    above = 0
+    below = 0
+    for x in range(10000):
+        accuracy = ranges_random_tipping_point(0.6, 0.8)
+        threshold = ranges_random_tipping_point(low, high)
+        if accuracy > threshold:
+            above = above + 1
+        elif accuracy < threshold:
+            below = below + 1
+    print(above, below)
+
+
+calculate_accuracy(0.4, 1)
+
+
 def attack(attacker, target):
     if attacker != player:
         text = input("Alien ship attacks!")
@@ -95,4 +119,4 @@ def pickAlien():
             return alien
 
 
-getInput()
+# getInput()
