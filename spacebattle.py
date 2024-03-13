@@ -1,4 +1,4 @@
-import math, random
+import math, random, numpy
 
 
 class Ship:
@@ -45,10 +45,46 @@ def getInput():
     winCondition()
 
 
+def ranges_random_tipping_point(low, high):
+    while True:
+        threshold = random.random()
+        if threshold >= low and threshold <= high:
+            # print(threshold)
+            return threshold
+
+
+def calculate_accuracy(low, high):
+    above = 0
+    below = 0
+    for x in range(10000):
+        accuracy = ranges_random_tipping_point(0.6, 0.8)
+        threshold = ranges_random_tipping_point(low, high)
+        if accuracy > threshold:
+            above = above + 1
+        elif accuracy < threshold:
+            below = below + 1
+    print(above, below)
+
+
+# calculate_accuracy(0.4, 1)
+
+
+def standard_deviation(min, max):
+    diff = max - min
+    mean = min + (diff / 2)
+    return random.normal(mean, (diff) / 2)
+
+
 def attack(attacker, target):
     if attacker != player:
         text = input("Alien ship attacks!")
-    damage = attacker.accuracy * attacker.firepower
+    damage = round(
+        (
+            numpy.random.normal(attacker.accuracy, 0.1)
+            * attacker.firepower
+        ),
+        2,
+    )
     target.hull = target.hull - damage
     if target.hull <= 0:
         target.dead = True
@@ -76,6 +112,7 @@ def quitGame():
 
 def allDead():
     for alien in aliens:
+        print(alien.__dict__)
         if alien.dead == False:
             return False
 
